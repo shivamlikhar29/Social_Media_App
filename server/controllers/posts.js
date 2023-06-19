@@ -37,3 +37,10 @@ export const updatePost = async(req,res) =>{
    const updatedPost = await PostMessage.findByIdAndUpdate(_id,{ ...post,_id},{new:true});
    res.json(updatedPost)
 }
+
+export const deletePost = async (req,res)=>{
+    const id = req.params
+    const g = req.body
+    console.log(id.id)
+    return res.json({1:"error.dasdasdmessage"})
+}
