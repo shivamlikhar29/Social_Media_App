@@ -1,43 +1,27 @@
-import React,{useEffect,useState} from 'react'
-import {Container, AppBar, Typography, Grow, Grid} from '@mui/material'
-import useStyles from './styles'
-import {useDispatch} from 'react-redux'
+import React from 'react'
+import {Container} from '@mui/material'
 
-import {getPosts} from './actions/posts'
+import { BrowserRouter,Route,Routes} from 'react-router-dom'
 
-import Posts from './components/Posts/Posts'
-import Form from './components/Form/Form'
-import memories from './images/memories.png'
+
+import Navbar from './components/Navbar/Navbar'
+import Home from './components/Home/Home'
+import Auth from './components/Auth/Auth'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 
 const App = () =>{
-    const [currentId,setCurrentId] = useState(0)
-    const classes = useStyles();
-    const dispatch = useDispatch()
-
-    useEffect(()=>{
-        dispatch(getPosts())
-    },[currentId,dispatch])
-
-    return(
-        <Container maxWidth='lg'>
-            <AppBar className={classes.appBar} position='static' color='inherit'>
-                <Typography className={classes.heading} variant='h2' align='center'>Memories</Typography>
-                <img className={classes.image} src={memories} alt='memories' height='60' />
-            </AppBar>
-            <Grow in>
-                <Container>
-                    <Grid className={classes.mainContainer} container justifyContent='space-between' alignItems='stretch' spacing={3}>
-                        <Grid item xs={12} sm={7}>
-                            <Posts setCurrentId={setCurrentId} />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        </Grid>
-                    </Grid>
-                </Container>  
-            </Grow>
-        </Container>
+    
+    return( 
+            <GoogleOAuthProvider clientId='31954847729-q5uprm272gkpmd220md8goag882qj1ij.apps.googleusercontent.com'> 
+            <Container maxWidth='lg'>
+                <Navbar />
+               <Routes>
+                <Route exact path='/' element={<Home/>} />
+                <Route path='/auth' element={<Auth/>} />
+               </Routes>
+            </Container>
+            </GoogleOAuthProvider>
     )
 }
 
