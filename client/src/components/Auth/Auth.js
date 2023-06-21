@@ -5,16 +5,26 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Input from './Input';
 import { useState } from 'react';
 import Icon from './icon';
-
+import jwt_decode from 'jwt-decode'
+import {useDispatch} from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import useStyles from './styles'
+
+const initialState = {firstname:'',lastName:'',email:'',password:'',confirmPassword:''}
+
 
 export default function Auth() {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
+  const [formData,setFormData] = useState(initialState)
   const [showPassword,setShowPassword] = useState(false)
   const [isSignup,setIsSignup] = useState(false)
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+      e.preventDefault()
+      console.log(formData)
 
   }
 
@@ -33,15 +43,21 @@ export default function Auth() {
     handleShowPassword(false)
   }
 
-  const googleSuccess = async (res) => {
-    console.log(res)
-  }
+  const onGoogleSuccess = (response) =>{
+    const decode = jwt_decode(response.credential)
+    console.log(decode)
+    const result = decode
+    const token = response.credential
 
-  
-  const googleFailure = (error) => {
-    console.log("Google Sign In was unsuccessful. Try Again Later")
-    console.log(error)
+    try{
+      dispatch({type:'AUTH',data:{result,token}})
+      navigate('/')
+    }catch(error){
+      console.log(error)
+    }
+
   }
+ 
 
   return (
      <Container component='main' maxWidth='xs'>
@@ -62,15 +78,14 @@ export default function Auth() {
             <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
              {isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type='password' />}
              </Grid>
-             <GoogleLogin className={classes.googleButton} 
-                    color='primary' 
-                    fullWidth 
-                    onSuccess={credentialResponse => {
-                      console.log(credentialResponse);
-                    }}
-                    onError={() => {
-                      console.log('Login Failed');
-                    }}  />
+             <Button className={classes.googleButton} color='warning' fullWidth > 
+             <GoogleLogin   
+                     onSuccess={async (response) => { 
+                            onGoogleSuccess(response)
+                         }}
+
+                    onError={() => { console.log('Login Failed');}}  />
+              </Button>      
              <Button type='submit' fullWidth variant='contained' color="primary" className={classes.submit}>
               {isSignup ? "Sign Up" : "Sign In" }
              </Button>
