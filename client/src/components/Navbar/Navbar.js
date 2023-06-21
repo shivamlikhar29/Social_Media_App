@@ -21,12 +21,11 @@ function Navbar() {
     const [user,setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
     useEffect(()=>{
-        if(user) {
-           const token = user.token
-        }
-
-
+        const token = user?.token;
+        
         setUser(JSON.parse(localStorage.getItem('profile')))
+
+
     },[location])
 
 
@@ -47,8 +46,9 @@ function Navbar() {
     <Toolbar className={classes.toolbar}>
         {user ?  (
             <div className={classes.profile}>
-                <Avatar className={classes.purple} alt={user.result.picture} src={user.result.picture} ></Avatar> 
-                <Typography className={classes.userName} variant='h6'>{String(user.result.name)}</Typography>
+                {/* <Avatar className={classes.purple} alt={user.result?.picture} src={user.result?.picture} ></Avatar>  */}
+                <Avatar className={classes.purple} alt={user?.result.name} src={user?.result?.picture}>{user?.result.name.charAt(0)}</Avatar>
+                <Typography className={classes.userName} variant='h6'>{String(user.result?.name)}</Typography>
                 <Button variant='contained' className={classes.logout} color='secondary' onClick={logout}>Logout</Button>
             </div>
         ) : (

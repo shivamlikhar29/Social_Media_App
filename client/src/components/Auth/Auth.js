@@ -9,8 +9,9 @@ import jwt_decode from 'jwt-decode'
 import {useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import useStyles from './styles'
+import { signin,signup } from '../../actions/auth';
 
-const initialState = {firstname:'',lastName:'',email:'',password:'',confirmPassword:''}
+const initialState = {firstName:'',lastName:'',email:'',password:'',confirmPassword:''}
 
 
 export default function Auth() {
@@ -24,23 +25,24 @@ export default function Auth() {
 
   const handleSubmit = (e) => {
       e.preventDefault()
-      console.log(formData)
 
-  }
-
-  const handleChange = () => {
-
-  }
-
-  const handleShowPassword = () => {
-      function setShowPassword(prevShowPassword){
-         return !prevShowPassword
+      if(isSignup){
+        dispatch(signup(formData,navigate))
+      }else{
+        dispatch(signin(formData,navigate))
       }
+
   }
+
+  const handleChange = (e) => {
+    setFormData({...formData,[e.target.name]:e.target.value})
+  }
+
+  const handleShowPassword = () => setShowPassword(!showPassword);
 
   const switchMode = ()=> {
     setIsSignup((p)=>!p)
-    handleShowPassword(false)
+    setShowPassword(false)
   }
 
   const onGoogleSuccess = (response) =>{
