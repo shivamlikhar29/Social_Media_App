@@ -25,10 +25,8 @@ const Post = ({post,setCurrentId}) =>{
               <><ThumbUpAltOutlinedIcon fontSize="small" />&nbsp;{post.likeCount.length} {post.likeCount.length === 1 ? 'Like' : 'Likes'}</>
             );
         }}
-
-        console.log(post.creator)
     return(
-        <Card className={classes.card}>
+        <Card className={classes.card} raised elevation={6}>
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title}/>
             <div className={classes.overlay}>
                 <Typography variant="h6">{post.name}</Typography> 

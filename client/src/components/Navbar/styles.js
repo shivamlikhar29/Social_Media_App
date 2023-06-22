@@ -11,6 +11,7 @@ export default makeStyles(() => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    flexDirection:'inherit',
     alignItems: 'center',
     padding: '10px 50px',
     [theme.breakpoints.down('sm')]: {
