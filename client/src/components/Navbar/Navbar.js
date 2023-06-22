@@ -6,6 +6,7 @@ import { googleLogout } from '@react-oauth/google'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import jwtDecode from 'jwt-decode'
 
 
 import memories from '../../images/memories.png'
@@ -22,10 +23,13 @@ function Navbar() {
 
     useEffect(()=>{
         const token = user?.token;
+
+        if(token){
+            const decodedToken = jwtDecode(token)
+            if(decodedToken.exp*1000 < new Date().getTime()) logout()
+        }
         
         setUser(JSON.parse(localStorage.getItem('profile')))
-
-
     },[location])
 
 

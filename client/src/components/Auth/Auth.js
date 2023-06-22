@@ -73,7 +73,7 @@ export default function Auth() {
             {isSignup && (
               <>
               <Input autoFocus name='firstName' label="First Name" handleChange={handleChange} half/>
-              <Input half name='lastName' label="First Name" handleChange={handleChange}/>
+              <Input half name='lastName' label=" Name" handleChange={handleChange}/>
               </>
             )}
             <Input name="email" label="Email Address" handleChange={handleChange} type="email" />

@@ -21,7 +21,7 @@ export const signin = (formData, navigate) => async (dispatch) => {
   
       navigate('/')
     } catch (error) {
-      console.log(error);
+      console.log("error from auth");
     }
   };
 

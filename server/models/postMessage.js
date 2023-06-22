@@ -5,6 +5,8 @@ const postSchema = mongoose.Schema({
 
     message:String,
 
+    name:String,
+
     creator:String,
 
     tags:[String],
