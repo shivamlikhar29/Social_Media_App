@@ -20,3 +20,5 @@ export const signIn = (formData) => API.post('/user/signin',formData)
 export const signUp = (formData) => API.post('/user/signup',formData)
 
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`)
+
+export const fetchPost = (id) => API.get(`/posts/${id}`)

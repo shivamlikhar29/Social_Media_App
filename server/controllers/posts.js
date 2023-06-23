@@ -5,14 +5,15 @@ import PostMessage from "../models/postMessage.js"
 export const getPosts = async (req,res)=>{
     const {page} = req.query
     try{
-        const LIMIT = 8
+        const LIMIT = 2
         const startIndex = (Number(page)-1) * LIMIT //start index of evey page post
         const total = await PostMessage.countDocuments({})
 
         const posts = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(startIndex)
-        return res.status(200).json({data: posts,currentPages:Number(page),numberOfPage:Math.ceil(total)})
+        return res.status(200).json({data: posts,currentPages:Number(page),numberOfPages:Math.ceil(total)})
     }catch(error){
         return res.status(404).json({message:error.message})
+        
     }
 }
 
@@ -76,11 +77,23 @@ export const getPostsBySearch = async (req, res) => {
             const title = new RegExp(searchQuery, "i");
             
     
-            const posts = await PostMessage.find({ $or: [ { title }, { tags: { $in: tags.split(',')} } ]});  
-            // const posts = await PostMessage.find({tags:tags}). 
+            // const posts = await PostMessage.find({tags:{$all: tags}});  
+            const posts = await PostMessage.find({ $or: [ { title }, { tags: { $all: tags } } ]});
+            console.log(posts)
 
             res.json({ data: posts });
         } catch (error) {    
             res.status(404).json({ message: error.message });
         }
 } 
+
+export const getPost = async (req,res)=>{
+    const {id} = req.params
+    try{
+        console.log("hllo from the other side")
+        const post = await PostMessage.findById(id)
+        res.status(200).json(post)
+    }catch(error){
+        return res.status(404).json({message:error.message})
+    }
+}

@@ -2,15 +2,16 @@ import React, { useEffect } from 'react';
 import { Paper, Typography, CircularProgress, Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
-import { getPost, getPostsBySearch } from '../actions/posts';
+import { getPost, getPostsBySearch } from '../../actions/posts';
+import CommentSection from './CommentSection';
 import useStyles from './styles';
 
 const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const history = useHistory();
   const classes = useStyles();
   const { id } = useParams();
 
@@ -26,7 +27,7 @@ const Post = () => {
 
   if (!post) return null;
 
-  const openPost = (_id) => navigate(`/posts/${_id}`);
+  const openPost = (_id) => history.push(`/posts/${_id}`);
 
   if (isLoading) {
     return (
@@ -60,6 +61,7 @@ const Post = () => {
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
+          <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>

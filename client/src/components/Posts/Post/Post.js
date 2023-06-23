@@ -1,11 +1,12 @@
 import React from "react";
 
 import useStyles from './styles'
-import { Card,CardActions,CardMedia,CardContent,Button,Typography } from "@mui/material";
+import { Card,CardActions,CardMedia,CardContent,Button,Typography, ButtonBase } from "@mui/material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import {useNavigate} from 'react-router-dom'
 import moment from 'moment'
 
 import { useDispatch } from "react-redux";
@@ -15,6 +16,9 @@ const Post = ({post,setCurrentId}) =>{
     const classes = useStyles();
     const dispatch = useDispatch()
     const user = JSON.parse(localStorage.getItem('profile'));
+    const navigate = useNavigate();
+
+    const openPost = () => navigate(`/posts/${post._id}`)
 
     const Likes = () => {
         if (post.likeCount.length >= 0) {
@@ -27,6 +31,7 @@ const Post = ({post,setCurrentId}) =>{
         }}
     return(
         <Card className={classes.card} raised elevation={6}>
+            <ButtonBase className={classes.cardAction} onClick={openPost} nonce="asd"> 
             <CardMedia className={classes.media} image={post.selectedFile} title={post.title}/>
             <div className={classes.overlay}>
                 <Typography variant="h6">{post.name}</Typography> 
@@ -47,6 +52,7 @@ const Post = ({post,setCurrentId}) =>{
             <CardContent>
                 <Typography className={classes.title} variant="h5" color={"GrayText"} gutterBottom>{post.message}</Typography>
             </CardContent>
+            </ButtonBase>
             <CardActions className={classes.cardActions}>
                 <Button size={"small"} color="primary" disabled={!user?.result} onClick={()=>dispatch(likePost(post._id))}>
                    <Likes />
