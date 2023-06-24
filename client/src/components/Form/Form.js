@@ -6,6 +6,7 @@ import FileBase64 from 'react-file-base64';
 import {useDispatch} from 'react-redux'
 import { createPost,updatePost } from '../../actions/posts';
 import { useSelector } from "react-redux"
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -13,8 +14,9 @@ const Form = ({currentId,setCurrentId}) =>{
     const [postData,setPostData] = useState({
         title:'',message:'',tags:'',selectedFile:''
     })
-    const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
+    const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
     const classes = useStyles();
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
@@ -31,7 +33,7 @@ const Form = ({currentId,setCurrentId}) =>{
           e.preventDefault()  
 
           if (currentId === 0) {
-            dispatch(createPost({...postData,name:user?.result?.name}));
+            dispatch(createPost({...postData,name:user?.result?.name},navigate));
           } else {
             dispatch(updatePost(currentId,{...postData,name:user?.result?.name}));
           }
