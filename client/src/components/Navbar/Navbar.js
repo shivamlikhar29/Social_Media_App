@@ -12,6 +12,7 @@ import jwtDecode from 'jwt-decode'
 import memoriesLogo from '../../images/memories-Logo.png'
 import memoriesText from '../../images/memories-Text.png'
 import useStyles from './styles' 
+import './style.css'
 
 
 function Navbar() {
@@ -45,8 +46,8 @@ function Navbar() {
     <> 
     <AppBar style={{flexDirection:'row'}} className={classes.appBar} position='static' color='inherit'>
         <Link to="/" className={classes.brandContainer}>
-            <img component={Link} to="/" src={memoriesText} alt="icon" height="30px" />
-            <img className={classes.image} src={memoriesLogo} alt="icon" height="40px" />
+            <img className='memories' component={Link} to="/" src={memoriesText} alt="icon" height="30px" />
+            <img className="photo" style={{marginLeft: '10px',marginTop: '5px',}} src={memoriesLogo} alt="icon" height="40px" />
         </Link>
     <Toolbar className={classes.toolbar}>
         {user ?  (
@@ -56,7 +57,7 @@ function Navbar() {
                 <Button variant='contained' className={classes.logout} color='secondary' onClick={logout}>Logout</Button>
             </div>
         ) : (
-            <Button component={Link} to='/auth' variant='contained' color='primary'>Sign In</Button>
+            <Button className='button' component={Link} to='/auth' variant='contained' color='primary'>Sign In</Button>
         )}
     </Toolbar>
     </AppBar>
