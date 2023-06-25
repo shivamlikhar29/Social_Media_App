@@ -7,12 +7,12 @@ import { Button, TextField, Typography } from "@mui/material";
 import { commentPost } from "../../actions/posts";
 
 const CommentSection = ({post}) =>{
-    const [comments,setComments] = useState(post?.comments)
-    const [comment,setComment] = useState('')
-    const commentsRef = useRef()
     const user = JSON.parse(localStorage.getItem('profile'))
-    const classes = useStyles()
+    const [comment,setComment] = useState('')
     const dispatch = useDispatch()
+    const [comments,setComments] = useState(post?.comments)
+    const classes = useStyles()
+    const commentsRef = useRef()
     
     async function handleClick(){
         const finalComment = `${user.result.name}: ${comment}`
@@ -30,7 +30,7 @@ const CommentSection = ({post}) =>{
             <div className={classes.commentsOuterContainer}>
               <div className={classes.commentsInnerContainer}>
                 <Typography gutterBottom variant="h6">Comments</Typography>
-                    {comments.map((c,i)=>(
+                    {comments?.map((c,i)=>(
                         <Typography key={i} gutterBottom variant="subtitle1">
                              <strong>{c.split(': ')[0]}</strong>
                                {c.split(':')[1]}

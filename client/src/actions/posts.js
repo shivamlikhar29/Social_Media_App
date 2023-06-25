@@ -85,7 +85,7 @@ export const commentPost = (value,id) => async (dispatch) => {
     try{
         console.log('ACTION FIRE')
        const { data } = await api.commentPost(value,id)
-      await dispatch({type:COMMENT, payload: data})
+       dispatch({type:COMMENT, payload: data})
        return data.comments
     }catch(error){
         console.log("Action error")

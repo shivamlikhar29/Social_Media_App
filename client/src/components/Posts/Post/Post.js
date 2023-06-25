@@ -43,8 +43,8 @@ const Post = ({post,setCurrentId}) =>{
         }}
     return(
         <Card className={classes.card} raised elevation={6}>
-            <ButtonBase className={classes.cardAction} onClick={openPost}> 
-            <CardMedia className={classes.media} image={post.selectedFile} title={post.title}/>
+            <div className={classes.cardAction} onClick={openPost}> 
+            <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
             <div className={classes.overlay}>
                 <Typography variant="h6">{post.name}</Typography> 
                 <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
@@ -57,7 +57,7 @@ const Post = ({post,setCurrentId}) =>{
                    setCurrentId(post._id); }}
                        style={{ color: 'white' }}
                       size="small">
-      <MoreHorizIcon fontSize="default" />
+      <MoreHorizIcon fontSize="large" />
     </Button>
   </div>
             ) }
@@ -65,12 +65,12 @@ const Post = ({post,setCurrentId}) =>{
             <div className={classes.details}>
             <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
             </div>
-            <Typography className={classes.title} variant="h5" gutterBottom>{post.title}</Typography>
+            <Typography className={classes.title} variant="h5" gutterBottom component='h2'>{post.title}</Typography>
             <CardContent>
-                <Typography className={classes.title} variant="h5" color={"GrayText"} gutterBottom>{post.message}</Typography>
+               <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
             </CardContent>
-            </ButtonBase>   
-            <CardActions className={classes.cardActions}>
+            </div>   
+            <CardActions className={classes.cardActions}> 
                 <Button size={"small"} color="primary" disabled={!user?.result} onClick={handleLike}>
                    <Likes />
                 </Button>

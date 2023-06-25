@@ -38,11 +38,8 @@ const Post = () => {
   
   if (!post) return null;
   
-  const rp = async () =>{
-    return await posts?.data?.filter(({ _id }) => _id !== post._id);
-  }
-  const recommendedPosts = rp()
-  // const recommendedPosts = await posts?.data.filter(({ _id }) => _id !== post._id);
+ 
+  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
   
   const openPost = (_id) => navigate(`/posts/${_id}`);
   

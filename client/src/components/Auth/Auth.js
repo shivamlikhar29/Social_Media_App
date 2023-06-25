@@ -81,7 +81,7 @@ export default function Auth() {
              {isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type='password' />}
              </Grid>
              <Button className={classes.googleButton} color='warning' fullWidth > 
-             <GoogleLogin   
+             <GoogleLogin  
                      onSuccess={async (response) => { 
                             onGoogleSuccess(response)
                          }}
@@ -91,21 +91,6 @@ export default function Auth() {
              <Button type='submit' fullWidth variant='contained' color="primary" className={classes.submit}>
               {isSignup ? "Sign Up" : "Sign In" }
              </Button>
-             {/* <GoogleLogin
-              clientId='31954847729-q5uprm272gkpmd220md8goag882qj1ij.apps.googleusercontent.com'
-              render={(renderProps)=>(
-                <Button 
-                    className={classes.googleButton} 
-                    color='primary' 
-                    fullWidth 
-                    onClick={renderProps.onClick} 
-                    disabled={renderProps.disabled} 
-                    startIcon={<Icon />} variant='contained' >Google Sign In
-                </Button>)} 
-                    onSuccess={googleSuccess}
-                    onFailure={googleFailure}
-                    cookiePolicy='single_host_origin'
-              /> */}
              <Grid container justifyContent="flex-end">
                 <Grid item>
                     <Button onClick={switchMode}>
