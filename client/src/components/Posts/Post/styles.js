@@ -1,4 +1,4 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles({
   media: {
@@ -53,4 +53,4 @@ export default makeStyles({
     display: 'block',
     textAlign: 'initial',
   },
-  });
+});

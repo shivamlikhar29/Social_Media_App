@@ -1,8 +1,6 @@
-import { makeStyles } from '@mui/styles';
-import { createTheme } from '@mui/material';
- const theme = createTheme()
+import { makeStyles } from '@material-ui/core/styles';
 
-export default makeStyles(()=>({
+export default makeStyles((theme) => ({
   [theme.breakpoints.down('sm')]: {
     mainContainer: {
       flexDirection: 'column-reverse',
@@ -22,4 +20,4 @@ export default makeStyles(()=>({
   image: {
     marginLeft: '15px',
   },
-}))
+}));
