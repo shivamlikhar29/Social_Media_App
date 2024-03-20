@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "npm install --force",
-    "build": "react-scripts build",
+    "build": "npm install --force",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
